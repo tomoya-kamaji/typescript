@@ -1,35 +1,25 @@
-const userName = 'Max';
-// userName = 'Maximilian';
-let age = 30;
+// const add = (a: number, b: number) => a + b;
 
-age = 29;
+// const printOutput: (output: string | number) => void = (output) => {
+//   console.log(output);
+// };
 
-// function add(a: number, b: number) {
-//   let result;
-//   result = a + b;
-//   return result;
-// }
+// console.log(add(2, 5));
 
-// if (age >= 20) {
-//   let isAdult = true;
-// }
+const button = document.querySelector("button");
 
-// console.log(isAdult);
-
-//console.log(result);
-
-const add = (a: number, b: number) => a + b;
-
-const printOutput: (output: string | number) => void = output => {
-  console.log(output);
+const add = (...numbers: number[]) => {
+  return numbers.reduce((curResult,curValue) => {
+    return curResult + curValue;
+  }, 0);
 };
 
-printOutput(add(2, 5));
+const addedNumbers = add(5, 1, 4, 4);
+console.log(addedNumbers);
 
-const button = document.querySelector('button');
 
-if (button) {
-  button.addEventListener('click', event => {
-    console.log(event);
-  });
-}
+const hobbies = ['Sports','Cooking']
+
+const [hobby1,hobby2,...remaingHobbies] = hobbies;
+
+console.log(hobbies,hobby1,hobby2)
