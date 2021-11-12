@@ -1,25 +1,15 @@
-// const add = (a: number, b: number) => a + b;
+class Department {
+  name: string;
 
-// const printOutput: (output: string | number) => void = (output) => {
-//   console.log(output);
-// };
+  constructor(n: string){
+    this.name = n;
+  }
 
-// console.log(add(2, 5));
+  describe(){
+    console.log('Department: ' + this.name)
+  }
+}
 
-const button = document.querySelector("button");
+const accounting = new Department('Accounting');
 
-const add = (...numbers: number[]) => {
-  return numbers.reduce((curResult,curValue) => {
-    return curResult + curValue;
-  }, 0);
-};
-
-const addedNumbers = add(5, 1, 4, 4);
-console.log(addedNumbers);
-
-
-const hobbies = ['Sports','Cooking']
-
-const [hobby1,hobby2,...remaingHobbies] = hobbies;
-
-console.log(hobbies,hobby1,hobby2)
+accounting.describe;
