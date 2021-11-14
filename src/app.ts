@@ -21,12 +21,23 @@ type Numeric = number | boolean;
 
 type Universal = Combinable & Numeric;
 
+/*  関数オーバロード
+  引数のパターンごとに返り値を決められる
+  下記のようにresult.split(" ");の部分で推論されどちらもnumberの場合にコンパイルエラ-となる
+ */
+function add(a: number, b: number): number;
+function add(a: string, b: string): string;
+function add(a: string, b: number): string;
+function add(a: number, b: string): string;
 function add(a: Combinable, b: Combinable) {
   if (typeof a === "string" || typeof b === "string") {
     return a.toString() + b.toString();
   }
   return a + b;
 }
+
+const result = add("Hello", "TypeScript");
+result.split(" ");
 
 type UnknownEmployee = Employee | Admin;
 
@@ -97,3 +108,20 @@ function moveAnimal(animal: Animal) {
 }
 
 moveAnimal({ type: "bird", flyingSpeed: 10 });
+
+// const userInputElement = <HTMLInputElement>document.getElementById("user-input");
+const userInputElement = document.getElementById(
+  "user-input"
+)! as HTMLInputElement;
+
+userInputElement.value = "こんにちは";
+
+interface ErrorContainer {
+  // {email: '正しいメールアドレスではありません。}
+  [prop: string]: string;
+}
+
+const errorBag: ErrorContainer = {
+  email: "正しいメールアドレスではありません",
+  username: "ユーザ名に記号を風メルことはできません",
+};
