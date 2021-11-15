@@ -35,3 +35,11 @@ function countAndDescribe<T extends Lengthy>(element: T): (string | T)[] {
 }
 
 console.log(countAndDescribe("お疲れさまです。"));
+
+
+
+function extraAndConvert<T extends object, U extends keyof T>(obj: T, key: U) {
+  return "Value" + obj[key];
+}
+
+console.log(extraAndConvert({ name: "max" }, "name"));

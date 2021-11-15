@@ -1,58 +1,19 @@
 "use strict";
-const e1 = {
-    name: "Max",
-    privileges: ["create-server"],
-    startDate: new Date(),
-};
-function add(a, b) {
-    if (typeof a === "string" || typeof b === "string") {
-        return a.toString() + b.toString();
-    }
-    return a + b;
+function merge(objA, objB) {
+    return Object.assign(objA, objB);
 }
-function printEmployeeInfomation(emp) {
-    console.log(emp.name);
-    if ("privileges" in emp) {
-        console.log("Privileges:" + emp.privileges);
+const mergedObj = merge({ name: "Max", hobbies: ["Sports"] }, { age: 30 });
+console.log(mergedObj);
+function countAndDescribe(element) {
+    let descriptionText = "値がありません。";
+    if (element.length > 0) {
+        descriptionText = "値は" + element.length + "個です。";
     }
-    if ("startDate" in emp) {
-        console.log("Start Date:" + emp.startDate);
-    }
+    return [element, descriptionText];
 }
-printEmployeeInfomation({ name: "Menu", startDate: new Date() });
-class Car {
-    drive() {
-        console.log("運転中,,,");
-    }
+console.log(countAndDescribe("お疲れさまです。"));
+function extraAndConvert(obj, key) {
+    return "Value" + obj[key];
 }
-class Truck {
-    drive() {
-        console.log("トラック運転中,,,");
-    }
-    loadCargo(amount) {
-        console.log("荷物を載せています..." + amount);
-    }
-}
-const v1 = new Car();
-const v2 = new Truck();
-function userVehicle(vehicle) {
-    vehicle.drive();
-    if (vehicle instanceof Truck) {
-        vehicle.loadCargo(1000);
-    }
-}
-userVehicle(v1);
-userVehicle(v2);
-function moveAnimal(animal) {
-    let speed;
-    switch (animal.type) {
-        case "bird":
-            speed = animal.flyingSpeed;
-            break;
-        case "horse":
-            speed = animal.runningSpeed;
-    }
-    console.log("移動速度：" + speed);
-}
-moveAnimal({ type: "bird", flyingSpeed: 10 });
+console.log(extraAndConvert({ name: "max" }, "name"));
 //# sourceMappingURL=app.js.map
