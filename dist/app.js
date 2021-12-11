@@ -1,19 +1,18 @@
 "use strict";
-function merge(objA, objB) {
-    return Object.assign(objA, objB);
-}
-const mergedObj = merge({ name: "Max", hobbies: ["Sports"] }, { age: 30 });
-console.log(mergedObj);
-function countAndDescribe(element) {
-    let descriptionText = "値がありません。";
-    if (element.length > 0) {
-        descriptionText = "値は" + element.length + "個です。";
-    }
-    return [element, descriptionText];
-}
-console.log(countAndDescribe("お疲れさまです。"));
-function extraAndConvert(obj, key) {
-    return "Value" + obj[key];
-}
-console.log(extraAndConvert({ name: "max" }, "name"));
+var Role;
+(function (Role) {
+    Role[Role["ADMIN"] = 0] = "ADMIN";
+    Role[Role["READ_ONLY"] = 1] = "READ_ONLY";
+    Role[Role["AUTHOR"] = 2] = "AUTHOR";
+})(Role || (Role = {}));
+console.log(Role.ADMIN);
+console.log(Role.AUTHOR);
+console.log(Role.READ_ONLY);
+const person = {
+    user_name: 'yota',
+    age: 30,
+    hobbies: ['Sports', 'Cooking'],
+    role: [2, 'author']
+};
+console.log(person);
 //# sourceMappingURL=app.js.map
