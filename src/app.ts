@@ -1,83 +1,121 @@
-// 関数の型定義　関数の引数と返り値について考える
-const logMessage = (message: string): void => {
-  console.log("Function basic sample 1:", message);
-};
-logMessage("Hellow TypeScript!");
+function objectSample(){
+  // const a: object = {
+  //   name: 'Torahack',
+  //   age: 28
+  // }
+  // a.name // aというobjectにはnameというプロパティがないとエラーとなる
+
+  // オブジェクトリテラル記法で型定義
+  let country: {
+    langage: string
+    name: string
+  } = {
+    langage: 'Japanese',
+    name: 'Japan'
+  }
+
+  console.log("Object object sample1:" ,country)
+
 
 /*
-  オプションとデフォルト
-  - オプション ?
-  - デフォルトパラメータ
+  特別なプロパティを扱う
+  - オプショナルのついたプロパティはあってもなくてもOK
+  - readonlyのついたプロパティは上書きできない
  */
-// const isUserSingnedIn = (userId: string, username?: string): boolean => {
-//   return true;
-// };
+  let torahack: {
+    age: number
+    lastName: string
+    readonly firstName: string
+    gender?: string
+  } = {
+    age: 28,
+    lastName: 'Yamada',
+    firstName: 'Tarou'
+  }
 
-// const isUserSingnedIn2 = (userId: string, username = "No Nome"): boolean => {
-//   return true;
-// };
+  torahack.gender = 'male'
+  torahack.lastName = 'Kamado'
+  // torahack.firstName = 'Tanjiro' エラー
+}
+
+objectSample()
+
 
 /*
-  ■可変長引数とは？
-  - 関数の呼び出しの際に引数の数をいくつ渡してもOK
-  - 全く型安全ではない(これが微妙な点なのかな) → anyの型
-  ■レストパラメーターとは
-  - パタメータに...を用いることで型宣言できる
-  - パラメータの最後に1つだけ指定できる
-*/
+  インデックスシグネチャ。複数のkey-valueを指定できるのがいいこと
+  - オブジェクトが複数のプロパティを持つ可能性を示す
+  - [key: T]:Uのように定義する
+  - keyはstringかnumberのみ ※注意
+ */
+const capitals:{
+  [contryName: string]: string
+} = {
+  Japan: 'Tokyo',
+  Korea: 'Seoul'
+}
+capitals.Chaina = 'Beijing'
+capitals.Canada = 'Ottawa'
 
-// const sumPrice = (...price: number[]): number => {
-//   // priceを使った処理
-//   return price[0];
-// };
-
-export const sumProductsPrice = (...productsPrice: number[]): number => {
-  return productsPrice.reduce((prevTotal: number, productPrice: number) => {
-    return prevTotal + productPrice
-  }, 0);
-};
+console.log(capitals.Japan);
 
 /*
-  呼び出しシグネチャ
-  - どのような関数なのかを表現する型定義
-  - 省略記法はアロー関数と似た形
+  型エイリアスで型定義を再利用
+  型エイリアスとは
+  - typeを使って型に名前をつけて宣言する
+  - 同じ型を何度も定義する必要がない(再利用)
+  - 型に名前をつけることで変数の役割を明確化
 */
-// 同じ意味
-type LogMessage = (message: string) => void
-type FullLogMessage = {
-  (message: string):void
-}
-const logMessage2: LogMessage = (message) => {
-  console.log('Function:' , message)
-}
-const fullLogMessage2: FullLogMessage = (message) => {
-  console.log('Function:' , message)
+type Country = {
+  capital: string
+  language: string
+  name: string
 }
 
+const japan:Country = {
+  capital: 'Tokyo',
+  language: 'Japanese',
+  name: 'Japan'
+}
 
+/*
+  union型(合併)とintersection型()
+  - 合併型：型Aか型Bどちらかの型をもつ
+  - 交差型：型Aと型Bどちらも型をもつ
+*/
+type Knight = {
+  hp: number
+  sp: number
+  weapon: string
+  swordSkill: string
+}
 
+type Wizard = {
+  hp: number
+  mp: number
+  weapon: string
+  magicSkill: string
+}
 
+//　合併型... KnightまたはWizardの型をもつ
+type Adventurer = Knight | Wizard
 
-// 配列に秩序をもたらす型定義
-const colors: string[] = ["red", "blue"];
-colors.push("yellow"); // OK
-// colors.push(123); // NG
+// 交差型...KnightかつWizardの型をもつ
+type Paladin = Knight & Wizard
 
-// この書き方は同義：T[]とArray<T>
-// const odd: number[] = [1, 2, 5];
-// const even: Array<number> = [1, 2, 5];
+// Knight寄りの冒険者
+const adventure1: Adventurer = {
+  hp: 100,
+  sp: 30,
+  weapon: '木の剣',
+  swordSkill: '三連切り'
+}
 
-// 合併型　あんまり使わない方がいい。
-const ids: (string | number)[] = ["ABC", 123];
-ids.push("DEF"); // OK
-ids.push(456); // OK
-
-// 配列の型推論
-// const generateSomeArray = () => {
-//   const _somArray = [];
-//   _somArray.push(123);
-//   _somArray.push("ABC");
-//   return _somArray;
-// };
-
-// const someArray = generateSomeArray();
+// Knight寄りの冒険者
+const Paladin: Adventurer = {
+  hp: 100,
+  sp: 30,
+  mp: 30,
+  weapon: '木の剣',
+  swordSkill: '三連切り',
+  magicSkill: 'ファイアボール'
+}
